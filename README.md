@@ -1,4 +1,4 @@
-# L5K to Ignition Tag Generator
+# L5K/L5X to Ignition Tag Generator
 
 A utility for parsing Rockwell Automation L5K and L5X project files and extracting Tags, UDTs, and Add-On Instructions into an Ignition-compatible JSON structure. It utilizes a SQLite database to ingest multiple L5K/L5X files and tracks them to avoid re-ingesting duplicates.
 
@@ -12,6 +12,7 @@ A utility for parsing Rockwell Automation L5K and L5X project files and extracti
 
 ## Setup
 Ensure you have Python 3.x installed. The tool utilizes the standard library and does not require third-party packages for core execution.
+Life is also always easier if you have `uv` installed: [[https://docs.astral.sh/uv/#highlights]]
 
 ## High-Level Workflow
 ```mermaid

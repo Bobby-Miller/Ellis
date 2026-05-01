@@ -3,7 +3,7 @@
 A utility for parsing Rockwell Automation L5K and L5X project files and extracting Tags, UDTs, and Add-On Instructions into an Ignition-compatible JSON structure. It utilizes a SQLite database to ingest multiple L5K/L5X files and tracks them to avoid re-ingesting duplicates.
 
 ## Features
-- Fast, line-by-line state machine parser for L5K files (memory efficient).
+- Fast, line-by-line state machine parser for L5K fils.
 - XML parser for modern L5X files.
 - Persistent SQLite database to store controllers, UDTs, and tags.
 - Configurable JSON-based filtering and renaming mechanism.

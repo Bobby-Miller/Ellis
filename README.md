@@ -52,15 +52,15 @@ If you have a list of tags exported from a FactoryTalk View application (or simi
 First, create an `hmi_config.json` file that contains the target database, the shortcut mapping, and the raw HMI tags list:
 ```json
 {
-  "database": "l5k_project.db",
+  "database": "plc_project.db",
   "shortcut_map": {
-    "IFC1_IUS_PLC": "IUS_905_PLC",
-    "FIS_PLC": "ISO_905_FIS_PLC"
+    "PLC1": "MAIN_PLC_01",
+    "AUX_PLC": "PLANT_AUX_PLC"
   },
   "hmi_tags": [
-    "[IFC1_IUS_PLC]LDHLift.Cycle.State",
-    "[IFC1_IUS_PLC]LDHLift.Cylinder[0].PI.Feedback.Device",
-    "[FIS_PLC]Program:MainProgram.MachineState"
+    "[PLC1]Mixer.Cycle.State",
+    "[PLC1]Mixer.Tank[0].Level.Feedback.Device",
+    "[AUX_PLC]Program:MainProgram.SystemState"
   ]
 }
 ```
@@ -69,7 +69,7 @@ Then, run the `build-config` utility:
 ```bash
 python main.py build-config hmi_config.json --output config.json
 ```
-The utility will safely parse the JSON, deconstruct UDT paths back to their Base Tag (e.g. converting `UDHLift.Cylinder[0].PI.Feedback` to just `UDHLift`), and optionally validate that the tag exists in the SQLite database to avoid orphaned tags.
+The utility will safely parse the JSON, deconstruct UDT paths back to their Base Tag (e.g. converting Mixer.Tank[0].Level.Feedback to just Mixer), and optionally validate that the tag exists in the SQLite database to avoid orphaned tags.
 
 ## Usage
 
@@ -85,13 +85,13 @@ Ingest a single `.L5K` or `.L5X` file, or an entire directory of files into the 
 
 ```bash
 # Ingest a single file
-python main.py --config sample_config.json ingest "hanwha_l5k/6698 PLC Rev07.L5K"
+python main.py --config sample_config.json ingest "project_l5k/PLC_Rev07.L5K"
 
 # Ingest an L5X file
-python main.py --config sample_config.json ingest "hanwha_l5x/6698 PLC Rev07.L5X"
+python main.py --config sample_config.json ingest "project_l5x/PLC_Rev07.L5X"
 
 # Ingest a directory of files
-python main.py --config sample_config.json ingest ./hanwha_l5k
+python main.py --config sample_config.json ingest ./project_l5k
 ```
 
 ### Export
@@ -100,11 +100,11 @@ Export tags from the SQLite database into a JSON file, using a configuration dic
 **Example `config.json`:**
 ```json
 {
-    "database": "l5k_project.db",
+    "database": "plc_project.db",
     "tags": {
         "PT001": {"export": true, "rename": "PressureTransmitter001"},
-        "Partial_Pressure_Torr": {"export": true},
-        "MainProgram.PCVD_Seal_Pressure": {"export": true, "rename": "Seal_Pressure"}
+        "Reactor_Pressure_PSI": {"export": true},
+        "MainProgram.Valve_Seal_Pressure": {"export": true, "rename": "Seal_Pressure"}
     }
 }
 ```
@@ -132,7 +132,7 @@ If you encounter new `Bad_NotFound` errors in Ignition for specific Rockwell typ
 
 ## Project Structure
 ```text
-120052-HAN-l5k_tag_generator/
+l5k_tag_generator/
 ├── main.py                  # Main CLI entrypoint for parsing, exporting, and building configs
 ├── pyproject.toml           # Project dependencies (pytest via uv)
 ├── README.md                # Documentation

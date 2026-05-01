@@ -47,9 +47,9 @@ flowchart TD
 ```
 
 ## Generating Configurations from HMI Tag Lists
-If you have a list of tags exported from a FactoryTalk View application (or similar HMI string lists) starting with shortcuts like `[IFC1_IUS_PLC]`, you can auto-generate the exporter `config.json` file.
+If you have a list of tags exported from an HMI application (or similar string lists) starting with shortcuts like [PLC1], you can auto-generate the exporter config.json file.
 
-First, create an `hmi_config.json` file that contains the target database, the shortcut mapping, and the raw HMI tags list:
+First, create an hmi_config.json file that contains the target database, the shortcut mapping, and the raw HMI tags list:
 ```json
 {
   "database": "plc_project.db",
